@@ -91,6 +91,7 @@ int main(int argc, char* argv[]) {
    int thread_count;           /* Number of threads          */
    char g_i;                   /* _G_en or _i_nput init conds */
    double start, finish;       /* For timings                */
+   omp_lock_t* locks;            /* One lock for each particle */
 
    Get_args(argc, argv, &thread_count, &n, &n_steps, &delta_t,
          &output_freq, &g_i);
@@ -98,8 +99,9 @@ int main(int argc, char* argv[]) {
    forces = malloc(n*sizeof(vect_t));
    locks = malloc(n*sizeof(omp_lock_t));
 
-for (part = 0; part < n; part++)
-   omp_init_lock(&locks[part]);
+   for (part = 0; part < n; part++)
+      omp_init_lock(&locks[part]);
+
    if (g_i == 'i')
       Get_init_cond(curr, n);
    else
@@ -109,29 +111,46 @@ for (part = 0; part < n; part++)
 #  ifndef NO_OUTPUT
    Output_state(0, curr, n);
 #  endif
-   for (step = 1; step <= n_steps; step++) {
-#     ifndef NO_OUTPUT
-      t = step*delta_t;
-#     endif
+   #pragma omp parallel num_threads(thread_count) default(none) \
+      shared(curr, forces, locks, n, n_steps, delta_t, output_freq) \
+      private(step, part, t)
+   {
+      for (step = 1; step <= n_steps; step++) {
 
-      Reset_forces(forces, n);
+         #pragma omp for
+         for (part = 0; part < n; part++) {
+            forces[part][X] = 0.0;
+            forces[part][Y] = 0.0;
+         }
 
-      /* Particle n-1 has all its forces after Compute_force(n-2, ...). */
-      for (part = 0; part < n-1; part++)
-         Compute_force(part, forces, curr, n);
+         /* Particle n-1 has all its forces after Compute_force(n-2, ...). */
+         #pragma omp for
+         for (part = 0; part < n-1; part++)
+            Compute_force(part, forces, curr, n, locks);
 
-      for (part = 0; part < n; part++)
-         Update_part(part, forces, curr, n, delta_t);
+         #pragma omp for
+         for (part = 0; part < n; part++)
+            Update_part(part, forces, curr, n, delta_t);
 
-#     ifndef NO_OUTPUT
-      if (step % output_freq == 0)
-         Output_state(t, curr, n);
-#     endif
+#ifndef NO_OUTPUT
+         #pragma omp single
+         {
+            if (step % output_freq == 0) {
+               t = step*delta_t;
+               Output_state(t, curr, n);
+            }
+         }
+#endif
+      }
    }
 
    finish = omp_get_wtime();
    printf("Elapsed time = %e seconds\n", finish-start);
 
+   for (part = 0; part < n; part++)
+      omp_destroy_lock(&locks[part]);
+
+   free(locks);
    free(curr);
    free(forces);
    return 0;
@@ -311,7 +330,7 @@ void Reset_forces(vect_t forces[], int n) {
  *    -G m_part m_k (s_part - s_k)/|s_part - s_k|^3
  */
 void Compute_force(int part, vect_t forces[], struct particle_s curr[],
-      int n) {
+      int n, omp_lock_t locks[]) {
    int k;
    double mg;
    vect_t f_part_k;
@@ -336,11 +355,16 @@ void Compute_force(int part, vect_t forces[], struct particle_s curr[],
             part, k, f_part_k[X], f_part_k[Y]);
 #     endif
 
-      /* Accumulate equal and opposite contributions into shared forces. */
+      /* Protect each shared force entry with its particle lock. */
+      omp_set_lock(&locks[part]);
       forces[part][X] += f_part_k[X];
       forces[part][Y] += f_part_k[Y];
+      omp_unset_lock(&locks[part]);
+
+      omp_set_lock(&locks[k]);
       forces[k][X] -= f_part_k[X];
       forces[k][Y] -= f_part_k[Y];
+      omp_unset_lock(&locks[k]);
    }
 }  /* Compute_force */
 
