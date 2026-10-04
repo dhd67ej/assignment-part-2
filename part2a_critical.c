@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 #  endif
 #pragma omp parallel num_threads(thread_count) default(none) \
    shared(curr, forces, n, n_steps, delta_t, output_freq) \
-   private(step, part)
+   private(step, part, t)
 {
    for (step = 1; step <= n_steps; step++) {
 
