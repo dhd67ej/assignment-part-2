@@ -1,0 +1,337 @@
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ gcc --version
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ nproc
+4
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 2), reused 4 (delta 2), pack-reused 0 (from 0)
+Unpacking objects: 100% (4/4), 4.36 KiB | 2.18 MiB/s, done.
+From https://github.com/dhd67ej/assignment-part-2
+   6a0116a..e68ae82  main       -> origin/main
+Updating 6a0116a..e68ae82
+Fast-forward
+ part2b_reduced_all_cyclic.c    | 407 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ part2b_reduced_default.c       | 407 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ part2b_reduced_forces_cyclic.c | 407 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 1221 insertions(+)
+ create mode 100644 part2b_reduced_all_cyclic.c
+ create mode 100644 part2b_reduced_default.c
+ create mode 100644 part2b_reduced_forces_cyclic.c
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ gcc -O2 -fopenmp -DNO_OUTPUT -o basic omp_nbody_basic.c -lm
+gcc -O2 -fopenmp -DNO_OUTPUT -o red_default part2b_reduced_default.c -lm
+gcc -O2 -fopenmp -DNO_OUTPUT -o red_forces part2b_reduced_forces_cyclic.c -lm
+gcc -O2 -fopenmp -DNO_OUTPUT -o red_all part2b_reduced_all_cyclic.c -lm
+omp_nbody_basic.c: In function ‘Get_init_cond’:
+omp_nbody_basic.c:222:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  222 |       scanf("%lf", &curr[part].m);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+omp_nbody_basic.c:223:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  223 |       scanf("%lf", &curr[part].s[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+omp_nbody_basic.c:224:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  224 |       scanf("%lf", &curr[part].s[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+omp_nbody_basic.c:225:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  225 |       scanf("%lf", &curr[part].v[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+omp_nbody_basic.c:226:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  226 |       scanf("%lf", &curr[part].v[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_default.c: In function ‘Get_init_cond’:
+part2b_reduced_default.c:247:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  247 |       scanf("%lf", &curr[part].m);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_default.c:248:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  248 |       scanf("%lf", &curr[part].s[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_default.c:249:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  249 |       scanf("%lf", &curr[part].s[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_default.c:250:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  250 |       scanf("%lf", &curr[part].v[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_default.c:251:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  251 |       scanf("%lf", &curr[part].v[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_forces_cyclic.c: In function ‘Get_init_cond’:
+part2b_reduced_forces_cyclic.c:247:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  247 |       scanf("%lf", &curr[part].m);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_forces_cyclic.c:248:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  248 |       scanf("%lf", &curr[part].s[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_forces_cyclic.c:249:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  249 |       scanf("%lf", &curr[part].s[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_forces_cyclic.c:250:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  250 |       scanf("%lf", &curr[part].v[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_forces_cyclic.c:251:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  251 |       scanf("%lf", &curr[part].v[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_all_cyclic.c: In function ‘Get_init_cond’:
+part2b_reduced_all_cyclic.c:247:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  247 |       scanf("%lf", &curr[part].m);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_all_cyclic.c:248:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  248 |       scanf("%lf", &curr[part].s[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_all_cyclic.c:249:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  249 |       scanf("%lf", &curr[part].s[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_all_cyclic.c:250:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  250 |       scanf("%lf", &curr[part].v[X]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+part2b_reduced_all_cyclic.c:251:7: warning: ignoring return value of ‘scanf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  251 |       scanf("%lf", &curr[part].v[Y]);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ ls basic red_default red_forces red_all
+basic  red_all  red_default  red_forces
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ ./basic 4 2000 20 0.01 20 g
+Elapsed time = 1.982074e-01 seconds
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ ./basic 4 4000 100 0.01 100 g
+Elapsed time = 3.769259e+00 seconds
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ cat > run_tests.sh <<'EOF'
+#!/bin/bash
+
+THREADS="1 4 8 16 32"
+RUNS=3
+N=4000
+STEPS=100
+DT=0.01
+FREQ=100
+
+echo "implementation,threads,run,time" > results.csv
+
+for prog in basic red_default red_forces red_all
+do
+    echo "=============================="
+    echo "Testing $prog"
+    echo "=============================="
+
+    for t in $THREADS
+    do
+        for r in $(seq 1 $RUNS)
+        do
+            echo "Running $prog: threads=$t, run=$r"
+
+            output=$(./$prog $t $N $STEPS $DT $FREQ g)
+            time=$(echo "$output" | awk '/Elapsed time/ {print $4}')
+
+            echo "$prog,$t,$r,$time" >> results.csv
+        done
+    done
+done
+
+echo "=============================="
+echo "ALL TESTS COMPLETE"
+echo "=============================="
+cat results.csv
+EOF
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ chmod +x run_tests.sh
+./run_tests.sh
+==============================
+Testing basic
+==============================
+Running basic: threads=1, run=1
+Running basic: threads=1, run=2
+Running basic: threads=1, run=3
+Running basic: threads=4, run=1
+Running basic: threads=4, run=2
+Running basic: threads=4, run=3
+Running basic: threads=8, run=1
+Running basic: threads=8, run=2
+Running basic: threads=8, run=3
+Running basic: threads=16, run=1
+Running basic: threads=16, run=2
+Running basic: threads=16, run=3
+Running basic: threads=32, run=1
+Running basic: threads=32, run=2
+Running basic: threads=32, run=3
+==============================
+Testing red_default
+==============================
+Running red_default: threads=1, run=1
+Running red_default: threads=1, run=2
+Running red_default: threads=1, run=3
+Running red_default: threads=4, run=1
+Running red_default: threads=4, run=2
+Running red_default: threads=4, run=3
+Running red_default: threads=8, run=1
+Running red_default: threads=8, run=2
+Running red_default: threads=8, run=3
+Running red_default: threads=16, run=1
+Running red_default: threads=16, run=2
+Running red_default: threads=16, run=3
+Running red_default: threads=32, run=1
+Running red_default: threads=32, run=2
+Running red_default: threads=32, run=3
+==============================
+Testing red_forces
+==============================
+Running red_forces: threads=1, run=1
+Running red_forces: threads=1, run=2
+Running red_forces: threads=1, run=3
+Running red_forces: threads=4, run=1
+Running red_forces: threads=4, run=2
+Running red_forces: threads=4, run=3
+Running red_forces: threads=8, run=1
+Running red_forces: threads=8, run=2
+Running red_forces: threads=8, run=3
+Running red_forces: threads=16, run=1
+Running red_forces: threads=16, run=2
+Running red_forces: threads=16, run=3
+Running red_forces: threads=32, run=1
+Running red_forces: threads=32, run=2
+Running red_forces: threads=32, run=3
+==============================
+Testing red_all
+==============================
+Running red_all: threads=1, run=1
+Running red_all: threads=1, run=2
+Running red_all: threads=1, run=3
+Running red_all: threads=4, run=1
+Running red_all: threads=4, run=2
+Running red_all: threads=4, run=3
+Running red_all: threads=8, run=1
+Running red_all: threads=8, run=2
+Running red_all: threads=8, run=3
+Running red_all: threads=16, run=1
+Running red_all: threads=16, run=2
+Running red_all: threads=16, run=3
+Running red_all: threads=32, run=1
+Running red_all: threads=32, run=2
+Running red_all: threads=32, run=3
+==============================
+ALL TESTS COMPLETE
+==============================
+implementation,threads,run,time
+basic,1,1,7.400906e+00
+basic,1,2,7.316309e+00
+basic,1,3,7.372795e+00
+basic,4,1,3.761520e+00
+basic,4,2,3.695889e+00
+basic,4,3,3.728822e+00
+basic,8,1,3.742493e+00
+basic,8,2,3.829041e+00
+basic,8,3,3.749792e+00
+basic,16,1,3.844831e+00
+basic,16,2,3.743262e+00
+basic,16,3,3.790551e+00
+basic,32,1,3.776468e+00
+basic,32,2,3.775040e+00
+basic,32,3,3.743329e+00
+red_default,1,1,3.749528e+00
+red_default,1,2,3.695965e+00
+red_default,1,3,3.773043e+00
+red_default,4,1,2.573207e+00
+red_default,4,2,2.502725e+00
+red_default,4,3,2.619859e+00
+red_default,8,1,2.018797e+00
+red_default,8,2,2.040621e+00
+red_default,8,3,2.074844e+00
+red_default,16,1,1.952845e+00
+red_default,16,2,2.055913e+00
+red_default,16,3,1.947161e+00
+red_default,32,1,1.990513e+00
+red_default,32,2,2.018716e+00
+red_default,32,3,1.971567e+00
+red_forces,1,1,3.715143e+00
+red_forces,1,2,3.743620e+00
+red_forces,1,3,3.710393e+00
+red_forces,4,1,1.973014e+00
+red_forces,4,2,2.009925e+00
+red_forces,4,3,1.964055e+00
+red_forces,8,1,1.937290e+00
+red_forces,8,2,1.931208e+00
+red_forces,8,3,1.948533e+00
+red_forces,16,1,1.920134e+00
+red_forces,16,2,2.044983e+00
+red_forces,16,3,1.926180e+00
+red_forces,32,1,1.940552e+00
+red_forces,32,2,2.051035e+00
+red_forces,32,3,1.934233e+00
+red_all,1,1,3.758915e+00
+red_all,1,2,3.719753e+00
+red_all,1,3,3.711027e+00
+red_all,4,1,2.003245e+00
+red_all,4,2,1.857896e+00
+red_all,4,3,1.909935e+00
+red_all,8,1,2.006593e+00
+red_all,8,2,1.921617e+00
+red_all,8,3,2.015268e+00
+red_all,16,1,1.959762e+00
+red_all,16,2,1.927749e+00
+red_all,16,3,1.984354e+00
+red_all,32,1,2.011009e+00
+red_all,32,2,2.078102e+00
+red_all,32,3,1.999522e+00
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ cat results.csv
+implementation,threads,run,time
+basic,1,1,7.400906e+00
+basic,1,2,7.316309e+00
+basic,1,3,7.372795e+00
+basic,4,1,3.761520e+00
+basic,4,2,3.695889e+00
+basic,4,3,3.728822e+00
+basic,8,1,3.742493e+00
+basic,8,2,3.829041e+00
+basic,8,3,3.749792e+00
+basic,16,1,3.844831e+00
+basic,16,2,3.743262e+00
+basic,16,3,3.790551e+00
+basic,32,1,3.776468e+00
+basic,32,2,3.775040e+00
+basic,32,3,3.743329e+00
+red_default,1,1,3.749528e+00
+red_default,1,2,3.695965e+00
+red_default,1,3,3.773043e+00
+red_default,4,1,2.573207e+00
+red_default,4,2,2.502725e+00
+red_default,4,3,2.619859e+00
+red_default,8,1,2.018797e+00
+red_default,8,2,2.040621e+00
+red_default,8,3,2.074844e+00
+red_default,16,1,1.952845e+00
+red_default,16,2,2.055913e+00
+red_default,16,3,1.947161e+00
+red_default,32,1,1.990513e+00
+red_default,32,2,2.018716e+00
+red_default,32,3,1.971567e+00
+red_forces,1,1,3.715143e+00
+red_forces,1,2,3.743620e+00
+red_forces,1,3,3.710393e+00
+red_forces,4,1,1.973014e+00
+red_forces,4,2,2.009925e+00
+red_forces,4,3,1.964055e+00
+red_forces,8,1,1.937290e+00
+red_forces,8,2,1.931208e+00
+red_forces,8,3,1.948533e+00
+red_forces,16,1,1.920134e+00
+red_forces,16,2,2.044983e+00
+red_forces,16,3,1.926180e+00
+red_forces,32,1,1.940552e+00
+red_forces,32,2,2.051035e+00
+red_forces,32,3,1.934233e+00
+red_all,1,1,3.758915e+00
+red_all,1,2,3.719753e+00
+red_all,1,3,3.711027e+00
+red_all,4,1,2.003245e+00
+red_all,4,2,1.857896e+00
+red_all,4,3,1.909935e+00
+red_all,8,1,2.006593e+00
+red_all,8,2,1.921617e+00
+red_all,8,3,2.015268e+00
+red_all,16,1,1.959762e+00
+red_all,16,2,1.927749e+00
+red_all,16,3,1.984354e+00
+red_all,32,1,2.011009e+00
+red_all,32,2,2.078102e+00
+red_all,32,3,1.999522e+00
+@dhd67ej ➜ /workspaces/assignment-part-2 (main) $ 
