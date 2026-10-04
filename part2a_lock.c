@@ -71,7 +71,7 @@ void Gen_init_cond(struct particle_s curr[], int n);
 void Output_state(double time, struct particle_s curr[], int n);
 void Reset_forces(vect_t forces[], int n);
 void Compute_force(int part, vect_t forces[], struct particle_s curr[],
-      int n);
+      int n, omp_lock_t locks[]);
 void Update_part(int part, vect_t forces[], struct particle_s curr[],
       int n, double delta_t);
 
@@ -96,6 +96,10 @@ int main(int argc, char* argv[]) {
          &output_freq, &g_i);
    curr = malloc(n*sizeof(struct particle_s));
    forces = malloc(n*sizeof(vect_t));
+   locks = malloc(n*sizeof(omp_lock_t));
+
+for (part = 0; part < n; part++)
+   omp_init_lock(&locks[part]);
    if (g_i == 'i')
       Get_init_cond(curr, n);
    else
